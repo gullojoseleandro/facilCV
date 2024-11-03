@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {currentYear} FacilCV. Todos los derechos reservados.</p>
+          <p>&copy; {currentYear} FacilCV - JLGDevelopment. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>
