@@ -1,5 +1,6 @@
 ---
 import '@/styles/globals.css'
+import Footer from '@/components/footer/Footer.jsx'
 
 interface Props {
 	title: string;
@@ -23,4 +24,19 @@ const { title, description, language } = Astro.props;
 	<body>
 		<slot />
 	</body>
+	<Footer client:visible/>
 </html>
+
+<style>
+  body {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)), url('/src/assets/img/pinta_experimental_celeste_blanco.webp'); 
+				background-attachment: fixed;
+				background-position: center;
+				z-index: -1; 
+			}
+</style>
