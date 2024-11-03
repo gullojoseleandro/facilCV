@@ -22,7 +22,7 @@ const LoginDialog = ({ children }) => {
     setIsOpen(false)
     toast({
       title: "Inicio de sesión exitoso",
-      description: "Bienvenido de vuelta a CVMaster.",
+      description: "Bienvenido de vuelta a FacilCV.",
     })
   }
 
