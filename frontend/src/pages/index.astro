@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import WelcomePage from '@/components/welcome_page/WelcomePage';
 ---
 
 <Layout title="Bienvenido a FacilCV." description="pagina de bienvenida de FacilCV." language="es">
-	<h1>Web de bienvenida</h1>
+	<WelcomePage client:load/>
 </Layout>
