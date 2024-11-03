@@ -1,5 +1,71 @@
 # FacilCV
 
+## Description
+
+A web application for managing online CVs. The goal is to provide a secure and easy-to-use platform for creating, sharing, and managing CVs. The application will allow users to create and customize their CVs quickly and easily, and share them with others via a unique link. Additionally, it will include a visit counter to allow users to see who has viewed their CV and when.
+
+## Objectives
+
+* Create a secure and easy-to-use platform for creating and managing online CVs.
+* Offer tools and features that allow users to personalize and improve their CVs.
+* Facilitate the sharing of CVs between professionals and companies.
+* Include a visit counter to allow users to see who has viewed their CV and when.
+
+## Features
+
+* Creation and editing of online CVs.
+* Personalization of CVs with pre-defined templates and designs.
+* Sharing of CVs via a unique link.
+* Visit counter to see who has viewed your CV and when.
+* Download of CVs in PDF format.
+* Integration with social media to share CVs.
+
+## Technologies Used
+
+* **Backend**: C# and ASP.NET
+* **Frontend**: Astro with React
+* **Libraries**:
+	+ jspdf for PDF generation
+	+ Tailwind for user interface styling
+	+ shadcn/ui for creating user interface components
+
+## Installation and Configuration
+
+1. Clone the repository to your local machine
+2. Install project dependencies using the command `npm install`
+3. Configure database connection in the `appsettings.json` file
+4. Start the application using the command `dotnet run`
+
+## Usage
+
+1. Register as a new user in the application
+2. Create and edit your online CV
+3. Share the link to your CV with others
+4. Download your CV in PDF format
+5. Check the visit counter to see who has viewed your CV and when
+
+## Contributions
+
+If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository
+2. Create a new branch for your contribution
+3. Make changes and submit a pull request
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
+
+
+
+
+
+---------------------------------------------------------------------------
+
+
+
+
+
 ## Descripción
 
 Aplicación web para la gestión de currículums vitae en línea. El objetivo es proporcionar una plataforma segura y fácil de usar para crear, compartir y gestionar currículums. La aplicación permitirá a los usuarios crear y personalizar sus currículums de manera fácil y rápida, y compartirlos con otros a través de un enlace único. Además, incluirá un contador de visitas para que los usuarios puedan ver quién ha visto su currículum y cuándo.
