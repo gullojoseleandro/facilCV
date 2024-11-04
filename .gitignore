@@ -1,3 +1,4 @@
 # Local Netlify folder
 .netlify
-frontend/.million/store.json
+frontend/.million
+frontend/.vscode
