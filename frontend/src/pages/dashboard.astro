@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Header from "@/components/header/Header"
+import DashboardComponent from '@/components/dashboard_page/DashboardComponent';
+---
+
+<Layout title="Bienvenido a FacilCV." description="pagina de bienvenida de FacilCV." language="es">
+    <div class="min-h-screen text-foreground flex flex-col">
+        <Header selectedPage="user_panel" client:load />
+    
+        <main class="flex-grow container mx-auto px-4 pt-24">
+            <DashboardComponent />
+        </main>
+      </div>
+</Layout>
