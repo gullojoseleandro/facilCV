@@ -6,41 +6,53 @@ import UserAvatar from "@/components/avatar/UserAvatar"
 import Dropdown from "@/components/dropdown/Dropdown"
 import { FileText, Download, UserPlus, BarChart, Layout, LogOut } from "lucide-react"
 
+import DashboardHome from "@/components/dashboard_page/DashboardHome"
+import UserProfile from "@/components/my_profile_page/UserProfile"
+import CVEditor from "@/components/cv_editor_page/CVEditor"
+import TemplatesGallery from "../templates_page/TemplatesGallery"
+import ResumePreview from "@/pages/resume_preview.astro"
+
 const dropdownItems = [
     {
         id: 1,
-        item: "Mi CV",
-        icon: <FileText className="w-4 h-4 mr-2" />,
+        item: "Estadísticas",
+        icon: <BarChart className="w-4 h-4 mr-2" />,
+        component: <DashboardHome />,
     },
     {
         id: 2,
-        item: "Descargar CV",
+        item: "Editar CV",
+        icon: <FileText className="w-4 h-4 mr-2" />,
+        component: <CVEditor />,
+    },
+    {
+        id: 3,
+        item: "Vista Previa",
         icon: <Download className="w-4 h-4 mr-2" />,
+        component: <ResumePreview />,
     },
     {
         id: 3,
         item: "Editar Perfil",
         icon: <UserPlus className="w-4 h-4 mr-2" />,
+        component: <UserProfile />,
     },
     {
         id: 4,
-        item: "Estadísticas",
-        icon: <BarChart className="w-4 h-4 mr-2" />,
+        item: "Plantillas",
+        icon: <Layout className="w-4 h-4 mr-2" />,
+        component: <TemplatesGallery />,
     },
     {
         id: 5,
-        item: "Cambiar template",
-        icon: <Layout className="w-4 h-4 mr-2" />,
-    },
-    {
-        id: 6,
         item: "Cerrar Sesión",
         icon: <LogOut className="w-4 h-4 mr-2" />,
+        component: <UserProfile />,
     },
 ]
 
 const Header = ({ ...props }) => {
-    const { selectedPage } = props
+    const { selectedPage, setActiveContent } = props
     const memoizedLoginButton = useMemo(() => (
         <GeneralButton
             variant="outline"
@@ -94,6 +106,7 @@ const Header = ({ ...props }) => {
                             items={dropdownItems}
                             className="bg-white bg-opacity-10 rounded-lg shadow-lg"
                             itemClassName="text-white hover:bg-white hover:bg-opacity-20 transition-all duration-300"
+                            setActiveContent={setActiveContent}
                         >
                             {memoizedUserAvatar}
                         </Dropdown>
