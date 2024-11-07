@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { motion } from "framer-motion"
 import GeneralButton from "@/components/button/GeneralButton"
 import RegisterDialog from "@/components/welcome_page/dialog/RegisterDialog"
