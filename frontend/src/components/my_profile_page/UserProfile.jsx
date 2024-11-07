@@ -1,228 +1,162 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { AlertCircle, Camera, Mail, Phone, MapPin, Lock, Bell, Eye, EyeOff } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Briefcase, GraduationCap, Award } from "lucide-react"
 
 const UserProfile = () => {
   const [user, setUser] = useState({
-    name: "Juan Pérez",
-    email: "juan@example.com",
-    phone: "+1234567890",
-    location: "Ciudad, País",
-    bio: "Desarrollador web apasionado con experiencia en React y Node.js.",
+    name: "Leandro Gullo",
+    email: "leandro.gullo@example.com",
+    phone: "+54 9 11 1234-5678",
+    location: "Buenos Aires, Argentina",
+    website: "https://leandrogullo.com",
+    bio: "Desarrollador Full Stack con experiencia en React, Node.js y bases de datos SQL y NoSQL. Apasionado por crear soluciones innovadoras y eficientes.",
     avatar: "/placeholder-avatar.jpg",
-    notifications: {
-      email: true,
-      push: false
-    }
+    publicProfile: true
   })
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [passwordFields, setPasswordFields] = useState({
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: ""
-  })
-
-  const handleInputChange = (field, value) => {
-    setUser(prevUser => ({
-      ...prevUser,
-      [field]: value
-    }))
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setUser(prevUser => ({ ...prevUser, [name]: value }))
   }
 
-  const handleNotificationChange = (type) => {
-    setUser(prevUser => ({
-      ...prevUser,
-      notifications: {
-        ...prevUser.notifications,
-        [type]: !prevUser.notifications[type]
-      }
-    }))
-  }
-
-  const handlePasswordChange = (field, value) => {
-    setPasswordFields(prevFields => ({
-      ...prevFields,
-      [field]: value
-    }))
-  }
-
-  const handleSaveProfile = () => {
-    // Aquí iría la lógica para guardar los cambios del perfil
-    console.log("Perfil guardado:", user)
-  }
-
-  const handleSavePassword = () => {
-    // Aquí iría la lógica para cambiar la contraseña
-    console.log("Cambio de contraseña:", passwordFields)
+  const handleSwitchChange = (checked) => {
+    setUser(prevUser => ({ ...prevUser, publicProfile: checked }))
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Mi Perfil</h1>
+    <div className="container mx-auto">      
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Información Personal</CardTitle>
-            <CardDescription>Actualiza tu información de perfil</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center space-x-4">
               <Avatar className="w-20 h-20">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{user.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
               </Avatar>
-              <Button variant="outline">
-                <Camera className="mr-2 h-4 w-4" />
-                Cambiar foto
-              </Button>
+              <Button>Cambiar foto</Button>
             </div>
             <div className="space-y-2">
               <Label htmlFor="name">Nombre completo</Label>
-              <Input
-                id="name"
-                value={user.name}
-                onChange={(e) => handleInputChange("name", e.target.value)}
-              />
+              <Input id="name" name="name" value={user.name} onChange={handleInputChange} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">Correo electrónico</Label>
-              <Input
-                id="email"
-                type="email"
-                value={user.email}
-                onChange={(e) => handleInputChange("email", e.target.value)}
-              />
+              <Input id="email" name="email" type="email" value={user.email} onChange={handleInputChange} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">Teléfono</Label>
-              <Input
-                id="phone"
-                value={user.phone}
-                onChange={(e) => handleInputChange("phone", e.target.value)}
-              />
+              <Input id="phone" name="phone" value={user.phone} onChange={handleInputChange} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="location">Ubicación</Label>
-              <Input
-                id="location"
-                value={user.location}
-                onChange={(e) => handleInputChange("location", e.target.value)}
-              />
+              <Input id="location" name="location" value={user.location} onChange={handleInputChange} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="bio">Biografía</Label>
-              <Textarea
-                id="bio"
-                value={user.bio}
-                onChange={(e) => handleInputChange("bio", e.target.value)}
-                rows={4}
-              />
+              <Label htmlFor="website">Sitio web</Label>
+              <Input id="website" name="website" value={user.website} onChange={handleInputChange} />
             </div>
           </CardContent>
-          <CardFooter>
-            <Button onClick={handleSaveProfile}>Guardar cambios</Button>
-          </CardFooter>
         </Card>
 
-        <div className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Cambiar Contraseña</CardTitle>
-              <CardDescription>Actualiza tu contraseña para mantener tu cuenta segura</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="currentPassword">Contraseña actual</Label>
-                <div className="relative">
-                  <Input
-                    id="currentPassword"
-                    type={showPassword ? "text" : "password"}
-                    value={passwordFields.currentPassword}
-                    onChange={(e) => handlePasswordChange("currentPassword", e.target.value)}
-                  />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="newPassword">Nueva contraseña</Label>
-                <Input
-                  id="newPassword"
-                  type="password"
-                  value={passwordFields.newPassword}
-                  onChange={(e) => handlePasswordChange("newPassword", e.target.value)}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirmar nueva contraseña</Label>
-                <Input
-                  id="confirmPassword"
-                  type="password"
-                  value={passwordFields.confirmPassword}
-                  onChange={(e) => handlePasswordChange("confirmPassword", e.target.value)}
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button onClick={handleSavePassword}>Cambiar contraseña</Button>
-            </CardFooter>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Configuración de Notificaciones</CardTitle>
-              <CardDescription>Gestiona cómo quieres recibir notificaciones</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label htmlFor="email-notifications">Notificaciones por correo</Label>
-                  <p className="text-sm text-muted-foreground">Recibe actualizaciones en tu correo electrónico</p>
-                </div>
-                <Switch
-                  id="email-notifications"
-                  checked={user.notifications.email}
-                  onCheckedChange={() => handleNotificationChange("email")}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="space-y-0.5">
-                  <Label htmlFor="push-notifications">Notificaciones push</Label>
-                  <p className="text-sm text-muted-foreground">Recibe notificaciones en tu dispositivo</p>
-                </div>
-                <Switch
-                  id="push-notifications"
-                  checked={user.notifications.push}
-                  onCheckedChange={() => handleNotificationChange("push")}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Biografía</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Textarea 
+              className="min-h-[200px]" 
+              placeholder="Escribe una breve descripción sobre ti..."
+              name="bio"
+              value={user.bio}
+              onChange={handleInputChange}
+            />
+          </CardContent>
+        </Card>
       </div>
 
-      <Alert className="mt-6">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Información importante</AlertTitle>
-        <AlertDescription>
-          Mantén tu información de perfil actualizada para aprovechar al máximo tu cuenta de FacilCV.
-        </AlertDescription>
-      </Alert>
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle>Configuración del perfil</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <Switch 
+              id="public-profile" 
+              checked={user.publicProfile}
+              onCheckedChange={handleSwitchChange}
+            />
+            <Label htmlFor="public-profile">Hacer público mi perfil</Label>
+          </div>
+          <p className="text-sm text-muted-foreground mt-2">
+            Al activar esta opción, tu perfil será visible para todos los usuarios de FacilCV.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle>Secciones del CV</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="experience">
+            <TabsList className="mb-4">
+              <TabsTrigger value="experience">Experiencia</TabsTrigger>
+              <TabsTrigger value="education">Educación</TabsTrigger>
+              <TabsTrigger value="skills">Habilidades</TabsTrigger>
+            </TabsList>
+            <TabsContent value="experience">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  <Briefcase className="h-5 w-5 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold">Desarrollador Full Stack</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">TechCorp • 2020 - Presente</p>
+                <p>Desarrollo de aplicaciones web utilizando React y Node.js. Implementación de APIs RESTful y bases de datos MongoDB.</p>
+              </div>
+            </TabsContent>
+            <TabsContent value="education">
+              <div className="space-y-4">
+                <div className="flex items-center space-x-2">
+                  <GraduationCap className="h-5 w-5 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold">Ingeniería en Sistemas</h3>
+                </div>
+                <p className="text-sm text-muted-foreground">Universidad de Buenos Aires • 2015 - 2019</p>
+              </div>
+            </TabsContent>
+            <TabsContent value="skills">
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <Award className="h-5 w-5 text-muted-foreground" />
+                  <span>React, Node.js, JavaScript, TypeScript</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Award className="h-5 w-5 text-muted-foreground" />
+                  <span>MongoDB, PostgreSQL, GraphQL</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Award className="h-5 w-5 text-muted-foreground" />
+                  <span>Git, Docker, AWS</span>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
+
+      <div className="mt-6 flex justify-end space-x-4">
+        <Button variant="outline">Cancelar</Button>
+        <Button>Guardar cambios</Button>
+      </div>
     </div>
   )
 }
