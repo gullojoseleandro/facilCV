@@ -1,15 +1,14 @@
-import { useState } from 'react'
+import { useDashboard } from '@/context/DashboardContext';
 import Header from "@/components/header/Header"
-import DashboardHome from "@/components/dashboard_page/DashboardHome"
 
 const DashboardContent = () => {
-    const [activeContent, setActiveContent] = useState(<DashboardHome />)
+    const { activeTab } = useDashboard();
 
     return (
         <>
-            <Header selectedPage="user_panel" setActiveContent={setActiveContent}/>
-            <main className="flex-grow mx-auto py-24">
-                {activeContent}
+            <Header />
+            <main className="container">
+                {activeTab}
             </main>
         </>
     )
