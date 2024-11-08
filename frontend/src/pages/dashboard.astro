@@ -1,0 +1,8 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import DashboardWrapper from "@/components/wrapper/DashboardWrapper";
+---
+
+<Layout title="Dashboard" description="Dashboard personal" language="es">
+  <DashboardWrapper client:only="react" />
+</Layout>

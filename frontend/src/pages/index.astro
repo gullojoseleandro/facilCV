@@ -1,8 +1,21 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import WelcomePage from '@/components/welcome_page/WelcomePage';
+import Layout from "../layouts/Layout.astro";
+import LogginButton from "@/components/welcome_page/button/LoginButton";
+import WelcomeCards from "@/components/welcome_page/card/WelcomeCards";
+import WelcomeTitle from "@/components/welcome_page/title/WelcomeTitle";
 ---
 
-<Layout title="Bienvenido a FacilCV." description="pagina de bienvenida de FacilCV." language="es">
-	<WelcomePage client:load/>
+<Layout
+  title="Bienvenido a FacilCV."
+  description="pagina de bienvenida de FacilCV."
+  language="es"
+>
+  <div class="min-h-screen text-foreground flex flex-col py-10">
+    <LogginButton client:load />
+
+    <main class="flex-grow container mx-auto">
+      <WelcomeTitle client:load />
+      <WelcomeCards client:load />
+    </main>
+  </div>
 </Layout>
