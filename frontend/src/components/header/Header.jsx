@@ -1,6 +1,6 @@
 import { useMemo } from "react"
+import { useDashboard } from "@/context/DashboardContext"
 import { motion } from "framer-motion"
-import LoginDialog from "@/components/welcome_page/dialog/LoginDialog"
 import GeneralButton from "@/components/button/GeneralButton"
 import UserAvatar from "@/components/avatar/UserAvatar"
 import Dropdown from "@/components/dropdown/Dropdown"
@@ -52,15 +52,7 @@ const dropdownItems = [
 ]
 
 const Header = ({ ...props }) => {
-    const { selectedPage, setActiveContent } = props
-    const memoizedLoginButton = useMemo(() => (
-        <GeneralButton
-            variant="outline"
-            className="bg-white bg-opacity-10 text-white border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300"
-        >
-            Iniciar sesión
-        </GeneralButton>
-    ), []);
+    const { handleChangeTab } = useDashboard();
 
     const memoizedUserAvatar = useMemo(() => (
         <GeneralButton className="rounded-full m-0 p-0 hover:ring-2 hover:ring-teal-300 transition-all duration-300">
@@ -84,34 +76,22 @@ const Header = ({ ...props }) => {
                 >
                     FacilCV
                 </motion.h1>
-                {selectedPage === "welcome" && (
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
+
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                    <Dropdown
+                        title="Mi cuenta"
+                        items={dropdownItems}
+                        className="bg-white bg-opacity-10 rounded-lg shadow-lg"
+                        itemClassName="text-white hover:bg-white hover:bg-opacity-20 transition-all duration-300"
+                        handleChangeTab={handleChangeTab}
                     >
-                        <LoginDialog>
-                            {memoizedLoginButton}
-                        </LoginDialog>
-                    </motion.div>
-                )}
-                {selectedPage === "user_panel" && (
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                        <Dropdown
-                            title="Mi cuenta"
-                            items={dropdownItems}
-                            className="bg-white bg-opacity-10 rounded-lg shadow-lg"
-                            itemClassName="text-white hover:bg-white hover:bg-opacity-20 transition-all duration-300"
-                            setActiveContent={setActiveContent}
-                        >
-                            {memoizedUserAvatar}
-                        </Dropdown>
-                    </motion.div>
-                )}
+                        {memoizedUserAvatar}
+                    </Dropdown>
+                </motion.div>
             </div>
         </motion.header>
     );
