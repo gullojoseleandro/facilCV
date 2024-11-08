@@ -1,10 +1,8 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import DashboardContent from '@/components/dashboard_page/DashboardContent';
+import Layout from "@/layouts/Layout.astro";
+import DashboardWrapper from "@/components/wrapper/DashboardWrapper";
 ---
 
-<Layout title="Bienvenido a FacilCV." description="pagina de bienvenida de FacilCV." language="es">
-    <div class="min-h-screen text-foreground flex flex-col">
-        <DashboardContent client:load/>
-    </div>
+<Layout title="Dashboard" description="Dashboard personal" language="es">
+  <DashboardWrapper client:only="react" />
 </Layout>
