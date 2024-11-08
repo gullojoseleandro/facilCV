@@ -31,7 +31,7 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="container mx-auto">      
+    <div className="container px-2 py-20">      
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
