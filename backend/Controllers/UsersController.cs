@@ -32,6 +32,7 @@ namespace backend.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(Users user)
         {
+            
             user.password = BCrypt.Net.BCrypt.HashPassword(user.password);
 
             await _supabaseClient.From<Users>().Insert(user);

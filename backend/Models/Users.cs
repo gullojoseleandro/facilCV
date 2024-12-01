@@ -8,7 +8,7 @@ namespace backend.Models
     public class Users : BaseModel
     {
         [PrimaryKey("user_id", false)]
-        public string id { get; set; }
+        public Guid id { get; set; }
 
         [Column("name")]
         public string name { get; set; }

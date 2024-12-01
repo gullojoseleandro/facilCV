@@ -11,7 +11,7 @@ public class JwtMiddleware
     public JwtMiddleware(RequestDelegate next, IConfiguration configuration)
     {
         _next = next;
-        _secretKey = configuration["JwtSettings:SecretKey"];
+        _secretKey = Environment.GetEnvironmentVariable("JWTSETTINGS_SECRETKEY");
     }
 
     public async Task Invoke(HttpContext context)
@@ -27,30 +27,30 @@ public class JwtMiddleware
     }
 
     private void AttachUserToContext(HttpContext context, string token)
-{
-    try
     {
-        Console.WriteLine("Token recibido en middleware: " + token);
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_secretKey);
-
-        tokenHandler.ValidateToken(token, new TokenValidationParameters
+        try
         {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ClockSkew = TimeSpan.Zero
-        }, out SecurityToken validatedToken);
+            Console.WriteLine("Token recibido en middleware: " + token);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_secretKey);
 
-        var jwtToken = (JwtSecurityToken)validatedToken;
-        var userId = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken validatedToken);
 
-        context.Items["User"] = userId;
+            var jwtToken = (JwtSecurityToken)validatedToken;
+            var userId = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
+
+            context.Items["User"] = userId;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al procesar el token: " + ex.Message);
+        }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine("Error al procesar el token: " + ex.Message);
-    }
-}
 }

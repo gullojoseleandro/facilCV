@@ -62,13 +62,13 @@ namespace backend.Controllers
 
         private string GenerateJwtToken(Users user)
         {
-            var secretKey = _configuration["JwtSettings:SecretKey"];
+            var secretKey = Environment.GetEnvironmentVariable("JWTSETTINGS_SECRETKEY");
             var key = Encoding.ASCII.GetBytes(secretKey);
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var claims = new[]
             {
-            new Claim("id", user.id),
+            new Claim("id", user.id.ToString()),
             new Claim("email", user.email)
         };
             var tokenDescriptor = new SecurityTokenDescriptor
