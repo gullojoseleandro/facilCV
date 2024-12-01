@@ -12,6 +12,11 @@ public class JwtMiddleware
     {
         _next = next;
         _secretKey = Environment.GetEnvironmentVariable("JWTSETTINGS_SECRETKEY");
+
+        if (string.IsNullOrEmpty(_secretKey))
+        {
+            throw new Exception("La clave secreta de JWT no está configurada correctamente.");
+        }
     }
 
     public async Task Invoke(HttpContext context)
@@ -20,7 +25,16 @@ public class JwtMiddleware
 
         if (token != null)
         {
-            AttachUserToContext(context, token);
+            try
+            {
+                AttachUserToContext(context, token);
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = 401; // Unauthorized
+                await context.Response.WriteAsJsonAsync(new { message = "Token inválido", error = ex.Message });
+                return;
+            }
         }
 
         await _next(context);
@@ -28,29 +42,21 @@ public class JwtMiddleware
 
     private void AttachUserToContext(HttpContext context, string token)
     {
-        try
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(_secretKey);
+
+        tokenHandler.ValidateToken(token, new TokenValidationParameters
         {
-            Console.WriteLine("Token recibido en middleware: " + token);
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_secretKey);
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        }, out SecurityToken validatedToken);
 
-            tokenHandler.ValidateToken(token, new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ClockSkew = TimeSpan.Zero
-            }, out SecurityToken validatedToken);
+        var jwtToken = (JwtSecurityToken)validatedToken;
+        var userId = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
 
-            var jwtToken = (JwtSecurityToken)validatedToken;
-            var userId = jwtToken.Claims.FirstOrDefault(x => x.Type == "id")?.Value;
-
-            context.Items["User"] = userId;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine("Error al procesar el token: " + ex.Message);
-        }
+        context.Items["User"] = userId; // Agregar al contexto
     }
 }

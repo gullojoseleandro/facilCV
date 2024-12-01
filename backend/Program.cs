@@ -33,8 +33,8 @@ if (string.IsNullOrEmpty(supabaseUrl) || string.IsNullOrEmpty(supabaseKey))
 // Configurar cliente Supabase utilizando variables de entorno
 builder.Services.AddScoped<Supabase.Client>(_ =>
     new Supabase.Client(
-        supabaseUrl,  
-        supabaseKey, 
+        supabaseUrl,
+        supabaseKey,
         new SupabaseOptions
         {
             AutoRefreshToken = true,
@@ -51,9 +51,9 @@ app.Urls.Add("http://0.0.0.0:5271");
 
 // Configuración del middleware
 app.UseHttpsRedirection();
-app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors("AllowAnyOrigin"); // Usar el nombre de la política definida
 app.UseRouting();
-app.UseMiddleware<JwtMiddleware>();
+app.UseMiddleware<JwtMiddleware>(); 
 app.UseAuthorization();
 
 app.MapControllers();
