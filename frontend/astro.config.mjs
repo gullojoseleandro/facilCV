@@ -1,6 +1,12 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
+import * as dotenv from 'dotenv';
+
+// Carga manual de variables .env dependiendo del entorno
+dotenv.config({ path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env' });
+
+console.log("VITE_API_URL cargado manualmente:", process.env.VITE_API_URL);
 
 export default defineConfig({
   integrations: [
