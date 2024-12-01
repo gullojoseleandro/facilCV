@@ -2,3 +2,7 @@
 .netlify
 frontend/.million
 frontend/.vscode
+
+backend/appsettings.json
+backend/.env
+appsettings
