@@ -7,7 +7,7 @@ if (import.meta.env.VITE_API_URL) {
 } else {
     console.log("VITE_API_URL no está definida");
 }
-
+console.log("Variables de entorno:", import.meta.env);
 const WelcomePageWrapper = () => (
     <AuthProvider>
         <WelcomePageContent />
