@@ -1,36 +1,21 @@
-import MillionLint from '@million/lint';
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
-import MillionCompiler from '@million/lint';
-import netlify from '@astrojs/netlify';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: 
-  [
-    react(), 
+  integrations: [
+    react(),
     tailwind({
       applyBaseStyles: false,
     }),
   ],
 
   vite: {
-    plugins: [
-      MillionCompiler.vite({
-        mode: "react",
-        server: true,
-        root: "./src",
-      }),
-      MillionLint.vite({
-        enabled: true,
-      })
-    ],
+    build: {
+      outDir: 'dist', // Esto asegura que se genere una carpeta dist adecuada para el despliegue
+    },
   },
 
-  output: 'server',
-  adapter: netlify({
-    edgeMiddleware: true,
-  }),
-  },
-)
+  output: 'static', // Usar output estático si solo quieres archivos estáticos para el frontend.
+});
