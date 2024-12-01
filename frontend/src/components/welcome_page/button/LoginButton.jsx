@@ -1,11 +1,11 @@
 import GeneralButton from "@/components/button/GeneralButton";
 import LoginDialog from "@/components/welcome_page/dialog/LoginDialog"
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion"
+import { AuthProvider } from "@/auth/authContext";
 
 const LogginButton = () => {
-
     const memoizedLoginButton = useMemo(() => (
         <GeneralButton
             variant="outline"
@@ -17,6 +17,7 @@ const LogginButton = () => {
 
     return (
         <>
+        <AuthProvider>
             <motion.div
                 initial={{ opacity: 0, x: 0 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -26,6 +27,7 @@ const LogginButton = () => {
                     {memoizedLoginButton}
                 </LoginDialog>
             </motion.div>
+        </AuthProvider>
         </>
     )
 }

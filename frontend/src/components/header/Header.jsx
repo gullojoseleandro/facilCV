@@ -6,10 +6,11 @@ import UserAvatar from "@/components/avatar/UserAvatar"
 import Dropdown from "@/components/dropdown/Dropdown"
 import { FileText, Download, UserPlus, BarChart, Layout, LogOut } from "lucide-react"
 
+
 import DashboardHome from "@/components/dashboard_page/DashboardHome"
-import UserProfile from "@/components/my_profile_page/UserProfile"
-import CVEditor from "@/components/cv_editor_page/CVEditor"
-import TemplatesGallery from "../templates_page/TemplatesGallery"
+import UserProfile from "@/components/dashboard_page/my_profile_page/UserProfile"
+import CVEditor from "@/components/dashboard_page/cv_editor_page/CVEditor"
+import TemplatesGallery from "../dashboard_page/templates_page/TemplatesGallery"
 import ResumePreview from "@/pages/resume_preview.astro"
 
 const dropdownItems = [
@@ -61,39 +62,39 @@ const Header = ({ ...props }) => {
     ), []);
 
     return (
-        <motion.header
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="border-b border-white border-opacity-20 fixed top-0 left-0 right-0 bg-gradient-to-r from-teal-900 to-blue-900 bg-opacity-90 backdrop-blur-md z-50"
-        >
-            <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-                <motion.h1
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    className="text-2xl font-bold text-white"
-                >
-                    FacilCV
-                </motion.h1>
-
-                <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                    <Dropdown
-                        title="Mi cuenta"
-                        items={dropdownItems}
-                        className="bg-white bg-opacity-10 rounded-lg shadow-lg"
-                        itemClassName="text-white hover:bg-white hover:bg-opacity-20 transition-all duration-300"
-                        handleChangeTab={handleChangeTab}
+            <motion.header
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="border-b border-white border-opacity-20 fixed top-0 left-0 right-0 bg-gradient-to-r from-teal-900 to-blue-900 bg-opacity-90 backdrop-blur-md z-50"
+            >
+                <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+                    <motion.h1
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        className="text-2xl font-bold text-white"
                     >
-                        {memoizedUserAvatar}
-                    </Dropdown>
-                </motion.div>
-            </div>
-        </motion.header>
+                        FacilCV
+                    </motion.h1>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                    >
+                        <Dropdown
+                            title="Mi cuenta"
+                            items={dropdownItems}
+                            className="bg-white bg-opacity-10 rounded-lg shadow-lg"
+                            itemClassName="text-white hover:bg-white hover:bg-opacity-20 transition-all duration-300"
+                            handleChangeTab={handleChangeTab}
+                        >
+                            {memoizedUserAvatar}
+                        </Dropdown>
+                    </motion.div>
+                </div>
+            </motion.header>
     );
 }
 

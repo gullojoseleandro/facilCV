@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "backend.Controllers.ControladorTest",
+    "Method": "Get",
+    "RelativePath": "api/ControladorTest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

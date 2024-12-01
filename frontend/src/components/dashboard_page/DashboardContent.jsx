@@ -7,7 +7,7 @@ const DashboardContent = () => {
     return (
         <>
             <Header />
-            <main className="container">
+            <main className="container-fluid">
                 {activeTab}
             </main>
         </>
