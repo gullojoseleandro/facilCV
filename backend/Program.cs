@@ -33,8 +33,8 @@ if (string.IsNullOrEmpty(supabaseUrl) || string.IsNullOrEmpty(supabaseKey))
 // Configurar cliente Supabase utilizando variables de entorno
 builder.Services.AddScoped<Supabase.Client>(_ =>
     new Supabase.Client(
-        supabaseUrl,  // Asegúrate de que el nombre sea correcto
-        supabaseKey,  // Asegúrate de que el nombre sea correcto
+        supabaseUrl,  
+        supabaseKey, 
         new SupabaseOptions
         {
             AutoRefreshToken = true,
@@ -47,6 +47,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+app.Urls.Add("http://0.0.0.0:5271");
 
 // Configuración del middleware
 app.UseHttpsRedirection();
