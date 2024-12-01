@@ -1,8 +1,15 @@
-# Local Netlify folder
-.netlify
-frontend/.million
-frontend/.vscode
+# Ignorar archivos de Netlify
+.netlify/
 
+# Ignorar archivos de configuraciones locales de Visual Studio Code
+frontend/.vscode/
+
+# Ignorar archivos relacionados con el frontend (si no necesitas subir .million)
+frontend/.million/
+
+# Ignorar archivos de configuración sensibles
 backend/appsettings.json
 backend/.env
+
+# Ignorar appsettings en la raíz del proyecto
 appsettings
